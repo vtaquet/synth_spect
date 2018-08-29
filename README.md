@@ -45,3 +45,6 @@ The observed spectrum file is a 2-column ASCII file giving the frequency (in MHz
 
 
 ## How to run the script
+
+Install python3 and the usual packages numpy, pandas, matplotlib, and scipy. Once python3 is install, type:
+'' python3 synth_spect.py ''
