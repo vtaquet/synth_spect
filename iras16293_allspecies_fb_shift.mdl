@@ -1,0 +1,324 @@
+! species        Ntot           Tex  source_size v_off   width database vibr.corr. ref.
+!                (cm-2)    		(K)  (’’) 	 	(km/s)  (km/s)
+!
+! CO
+CO,v=0                6.0e19  100  0.5  -0.2  1.0  cdms    1. MR
+C-13-O                7.0e17  100  0.5  -0.2  1.0  cdms    1. MR
+CO-17                 8.0e16  100  0.5  -0.2  1.0  cdms    1. MR
+CO-18                 1.0e17  100  0.5  -0.2  1.0  cdms    1. MR
+C-13-O-18             1.3e15  100  0.5  -0.2  1.0  cdms    1. MR
+! HCO+
+HCO+,v=0              1.0e15   50  0.5  -0.2  1.0  cdms    1. X
+HCO-17+               5.6e11   50  0.5  -0.2  1.0  cdms    1. X
+HC-13-O+              1.4e13   50  0.5  -0.2  1.0  cdms    1. X
+DCO+                  1.0e13   50  0.5  -0.2  1.0  cdms    1. X
+DCO-18+               1.0e12   50  0.5  -0.2  1.0  cdms    1. X
+HOC+,v2=0             1.0e15   50  0.5  -0.2  1.0  cdms    1. X
+DOC+                  1.0e13   50  0.5  -0.2  1.0  cdms    1. X
+! N2H+
+NNH+                  1.0e15   50  0.5  -0.2  1.0   jpl    1. X
+N2D+                  1.0e13   50  0.5  -0.2  1.0  cdms    1. X
+N-15-NH+              1.0e13   50  0.5  -0.2  1.0  cdms    1. X
+NN-15-H+              1.0e13   50  0.5  -0.2  1.0  cdms    1. X
+! Other ions
+H3O+                  1.0e15   50  0.5  -0.2  1.0  cdms    1. X
+H2DO+                 1.0e15   50  0.5  -0.2  1.0  cdms    1. X
+CH3CNH+               1.0e15   50  0.5  -0.2  1.0  cdms    1. X
+HC3NH+                3.6e13   50  0.5  -0.2  1.0  cdms    1. T18
+HCNH+                 1.0e15   50  0.5  -0.2  1.0  cdms    1. X
+HOCO+                 2.7e13   50  0.5  -0.2  1.0  cdms    1. T18
+! SiO
+SiO, v=0-10           7.0e13  300  0.5  -0.2  1.0  cdms    1. MR
+! CCH
+CCH,v=0               1.0e16  100  0.5  -0.2  1.0  cdms    1. X
+CCH,v2=1              1.0e16  100  0.5  -0.2  1.0  cdms    1. X
+CCH,v2=2              1.0e16  100  0.5  -0.2  1.0  cdms    1. X
+CCH,v3=1              1.0e16  100  0.5  -0.2  1.0  cdms    1. X
+CCH,nu2               1.0e16  100  0.5  -0.2  1.0  cdms    1. X
+CCH,nu3               1.0e16  100  0.5  -0.2  1.0  cdms    1. X
+CCH,nu2+nu3           1.0e16  100  0.5  -0.2  1.0  cdms    1. X
+CCH,5nu2              1.0e16  100  0.5  -0.2  1.0  cdms    1. X
+CCD                   1.0e15  100  0.5  -0.2  1.0  cdms    1. X
+C-13-CH               3.0e14  100  0.5  -0.2  1.0  cdms    1. X
+CC-13-H               3.0e14  100  0.5  -0.2  1.0  cdms    1. X
+! C3H
+C3H,v4=0,1mS          1.0e16  100  0.5  -0.2  1.0  cdms    1. X
+C3D,v4=0,1mS          1.0e15  100  0.5  -0.2  1.0  cdms    1. X
+13C-CCH,v4=0,1mS      3.0e14  100  0.5  -0.2  1.0  cdms    1. X
+C-13C-CH,v4=0,1mS     3.0e14  100  0.5  -0.2  1.0  cdms    1. X
+CC-13C-H,v4=0,1mS     3.0e14  100  0.5  -0.2  1.0  cdms    1. X
+! C3H2
+c-C3H2                2.0e14  100  0.5  -0.2  1.0  cdms    1. MR
+c-C3HD                2.0e13  100  0.5  -0.2  1.0  cdms    1. MR
+c-C-13-C2H2           4.0e12  100  0.5  -0.2  1.0  cdms    1. MR
+c-CCC-13-H2           4.0e12  100  0.5  -0.2  1.0  cdms    1. MR
+l-C3H2                2.0e14  100  0.5  -0.2  1.0  cdms    1. MR
+l-C-13-CCH2           4.0e12  100  0.5  -0.2  1.0  cdms    1. MR
+l-CC-13-CH2           4.0e12  100  0.5  -0.2  1.0  cdms    1. MR
+l-CCC-13-H2           4.0e12  100  0.5  -0.2  1.0  cdms    1. MR
+c-C3D2                2.0e12  100  0.5  -0.2  1.0  cdms    1. MR
+l-C3D2                2.0e12  100  0.5  -0.2  1.0  cdms    1. MR
+! CH3CCH
+CH3CCH                1.0e16  115  0.5  -0.2  1.0  cdms    1. MR
+CH3CCH,v10=1          1.0e16  115  0.5  -0.2  1.0  cdms    1. MR
+CH3CCH,nu10           1.0e16  115  0.5  -0.2  1.0  cdms    1. MR
+CH3CCH,nu9            1.0e16  115  0.5  -0.2  1.0  cdms    1. MR
+CH3CCD                1.0e15  115  0.5  -0.2  1.0  cdms    1. MR
+CH2DCCH               1.0e15  115  0.5  -0.2  1.0  cdms    1. MR
+! O2 and related species
+OO-18                 3.0e15  100  0.5  -0.2  1.0  cdms    1. T18
+HO2                   4.0e13   50  0.5  -0.2  1.0   jpl    1. T18
+H2O2                  2.0e13  100  0.5  -0.2  1.0   jpl    1. T18
+! CN 
+CN,v=0,1              1.0e16  300  0.5  -0.2  1.0  cdms    1. =HCN
+C-13-N                2.0e14  300  0.5  -0.2  1.0  cdms    1. =HCN
+CN-15                 2.0e14  300  0.5  -0.2  1.0  cdms    1. =HCN
+! HCN
+HCN,v=0               1.0e16  300  0.5  -0.2  1.0  cdms    1. MR
+HCN,v2=1              1.0e16  300  0.5  -0.2  1.0  cdms    1. MR
+HCN,v2=2              1.0e16  300  0.5  -0.2  1.0  cdms    1. MR
+HCN,v2=3              1.0e16  300  0.5  -0.2  1.0  cdms    1. MR
+HCN,v3=1              1.0e16  300  0.5  -0.2  1.0  cdms    1. MR
+HCN,v1=1              1.0e16  300  0.5  -0.2  1.0  cdms    1. MR
+HC-13-N,v=0           2.0e14  300  0.5  -0.2  1.0  cdms    1. MR
+HC-13-N,v2=1          2.0e14  300  0.5  -0.2  1.0  cdms    1. MR
+HCN-15,v=0            2.0e14  300  0.5  -0.2  1.0  cdms    1. MR
+HCN-15,v2=1           2.0e14  300  0.5  -0.2  1.0  cdms    1. MR
+DCN,v=0               2.0e14  300  0.5  -0.2  1.0  cdms    1. MR
+DCN,v2=1              2.0e14  300  0.5  -0.2  1.0  cdms    1. MR
+DC-13-N               1.0e13  300  0.5  -0.2  1.0  cdms    1. MR
+DCN-15                1.0e13  300  0.5  -0.2  1.0  cdms    1. MR
+HC-13-N-15,v=0        1.0e14  300  0.5  -0.2  1.0  cdms    1. MR
+HC-13-N-15,v2=1       1.0e14  300  0.5  -0.2  1.0  cdms    1. MR
+DC-13-N-15            2.0e12  300  0.5  -0.2  1.0  cdms    1. MR
+! HNC
+HNC,v=0               1.0e15   50  0.5  -0.2  1.0  cdms    1. =HCN/10.
+DNC                   1.0e15   50  0.5  -0.2  1.0  cdms    1. =HCN/10.
+HNC-13                2.0e13   50  0.5  -0.2  1.0  cdms    1. =HCN/10.
+! Cyanopolynes
+HC3N,v=0              4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v7=1             4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v7=2             4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v6=1             4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v6=v7=1          4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v4=1             4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v4=v7=1          4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v5=1/v7=3        4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v4=1,v7=2/v5=2^0 4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v3=1             4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v2=1             4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v7=4/v5=v7=1     4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC3N,v6=2             4.0e13  100  0.5  -0.2  1.0  cdms    1. T18
+HC-13-CCN,v=0         5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCC-13-CN,v=0         5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCCC-13-N,v=0         5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCCCN-15,v=0          5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HC-13-CCN,v7=1        5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCC-13-CN,v7=1        5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCCC-13-N,v7=1        5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCCCN-15,v7=1         5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HC-13-CCN,v7=2        5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCC-13-CN,v7=2        5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCCC-13-N,v7=2        5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HC-13-CCN,v6=1        5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCC-13-CN,v6=1        5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCCC-13-N,v6=1        5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HC-13-CCN,v5=1/v7=3   5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCC-13-CN,v5=1/v7=3   5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCCC-13-N,v5=1/v7=3   5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HC-13-CCN,v6=v7=1     5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCC-13-CN,v6=v7=1     5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCCC-13-N,v6=v7=1     5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCCC-13-N,v4=1        5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+HCCC-13-N,v4=v7=1     5.7e11  100  0.5  -0.2  1.0  cdms    1. T18
+DC3N,v=0              1.0e12  100  0.5  -0.2  1.0  cdms    1. X
+DC3N,v7=1             1.0e12  100  0.5  -0.2  1.0  cdms    1. X
+HC5N,v=0              1.0e13  100  0.5  -0.2  1.0  cdms    1. X
+HC7N,v=0              1.0e13  100  0.5  -0.2  1.0  cdms    1. X
+! Formaldehyde
+H2CO                  1.9e18  106  0.5  -0.2  1.0  cdms    1. P18
+H2C-13-O              3.6e16  106  0.5  -0.2  1.0  cdms    1. P18
+H2CO-17               7.2e14  106  0.5  -0.2  1.0  cdms    1. P18
+H2CO-18               2.3e15  106  0.5  -0.2  1.0  cdms    1. P18
+HDCO                  1.3e17  106  0.5  -0.2  1.0  cdms    1. P18
+HDCO-18               1.4e14  106  0.5  -0.2  1.0  cdms    1. P18
+D2CO                  1.6e16  106  0.5  -0.2  1.0  cdms    1. P18
+D2C-13-O              2.3e14  106  0.5  -0.2  1.0  cdms    1. P18
+! Methanol
+CH3OH                 1.0e19  300  0.5  -0.2  1.0   jpl   1.0 J18
+CH2DOH                7.1e17  300  0.5  -0.2  1.0   jpl   1.3 J18
+! 13CH3OH               1.4e17  300  0.5  -0.2  1.0  cdms   1.0 J18
+CH3O-18-H,v=0-2       1.8e16  300  0.5  -0.2  1.0  cdms   1.0 J18
+! Methyl formate
+CH3OCHO               2.6e17  300  0.5  -0.2  1.0   jpl   1.0 J18
+CH3OC-13-HO,vt=0,1    6.3e15  300  0.5  -0.2  1.0  cdms   1.0 J18
+! di-methyl ether
+CH3OCH3               2.4e17  125  0.5  -0.2  1.0   jpl   1.1 J18
+! Ethanol
+C2H5OH                2.3e17  300  0.5  -0.2  1.0   jpl  2.61 J18
+a-a-CH2DCH2OH         2.7e16  300  0.5  -0.2  1.0  cdms  2.61 J18
+a-s-CH2DCH2OH         1.3e15  300  0.5  -0.2  1.0  cdms  2.61 J18
+a-CH3CHDOH            2.3e16  300  0.5  -0.2  1.0  cdms  2.61 J18
+a-CH3CH2OD            1.1e16  300  0.5  -0.2  1.0  cdms  2.61 J18
+a-CH3C-13-H2OH        9.1e15  300  0.5  -0.2  1.0  cdms  2.61 J18
+a-C-13-H3CH2OH        9.1e15  300  0.5  -0.2  1.0  cdms  2.61 J18
+! Glycolaldehyde
+CH2(OH)CHO            1.7e16  300  0.5  -0.2  1.0  cdms  1.47 J16/2.
+CH2(OH)C-13-HO        6.2e14  300  0.5  -0.2  1.0  cdms  2.80 J16/2.
+C-13-H2(OH)CHO        6.2e14  300  0.5  -0.2  1.0  cdms  2.80 J16/2.
+CH2(OD)CHO            8.0e14  300  0.5  -0.2  1.0  cdms  3.29 J16/2.
+CHD(OH)CHO            1.8e15  300  0.5  -0.2  1.0  cdms  2.80 J16/2.
+CH2(OH)CDO            8.7e14  300  0.5  -0.2  1.0  cdms  2.80 J16/2.
+! Acetic acid
+! ethylene glycol
+aGg' glycol           2.7e16  300  0.5  -0.2  1.0  cdms  4.02 J16/2.
+gGg' glycol           2.5e16  300  0.5  -0.2  1.0  cdms  4.02 J16/2.
+! Ketene 
+H2CCO                 4.8e16  125  0.5  -0.2  1.0  cdms    1. J18
+H2CC-13-O             7.1e14  125  0.5  -0.2  1.0  cdms    1. J18
+H2C-13-CO             7.1e14  125  0.5  -0.2  1.0  cdms    1. J18
+HDC2O                 2.0e15  125  0.5  -0.2  1.0  cdms    1. J18
+! acetaldehyde
+CH3CHO                1.2e17  125  0.5  -0.2  1.0   jpl    1. J18
+! CH3CDO
+! formic acid
+t-HCOOH               5.6e16  300  0.5  -0.2  1.0  cdms 1.103 J18
+c-HCOOH               1.0e15  300  0.5  -0.2  1.0  cdms 1.103 J18
+DCOOH                 1.1e15  300  0.5  -0.2  1.0   jpl 1.107 J18
+HCOOD                 1.1e15  300  0.5  -0.2  1.0   jpl 1.177 J18
+HC-13-OOH             8.3e14  300  0.5  -0.2  1.0   jpl 1.105 J18
+! Other O-COMs
+s-Propanal, v=0       2.2e15  125  0.5  -0.2  1.0  cdms 1.489 Ly17
+Ethylene oxide        6.1e15  125  0.5  -0.2  1.0  cdms 1.489 Ly17
+CH3COCH3              1.7e16  125  0.5  -0.2  1.0   jpl 1.489 Ly17 
+Ga-n-C3H7OH           1.3e15  300  0.5  -0.2  1.0  cdms    1.    X
+ethyl formate         1.0e15  125  0.5  -0.2  1.0  cdms    1.    X
+! HNCO
+HNCO                  3.7e16  300  0.5  -0.2  1.0   jpl    1. Co17
+DCNO                  3.0e14  300  0.5  -0.2  1.0  cdms    1. Co17
+HC-13-NO              4.0e14  300  0.5  -0.2  1.0  cdms    1. Co17
+HCN-15-O              1.3e14  300  0.5  -0.2  1.0  cdms    1. Co17
+HNCO-18               1.5e14  300  0.5  -0.2  1.0   jpl    1. Co17
+!N2O                   6.0e16  300  0.5  -0.2  1.0   jpl    1. MR
+NO2                   6.0e16  300  0.5  -0.2  1.0   jpl    1. MR
+! Formamide
+HC(O)NH2, v=0         1.0e16  300  0.5  -0.2  1.0  cdms    1. Co17
+HC-13-(O)NH2          1.5e14  300  0.5  -0.2  1.0  cdms   1.5 Co17
+HC(O)N-15-H2          1.0e14  300  0.5  -0.2  1.0  cdms    1. Co17
+cis-HC(O)NHD          2.1e14  300  0.5  -0.2  1.0  cdms   1.5 Co17
+trans-HC(O)NHD        1.8e14  300  0.5  -0.2  1.0  cdms   1.5 Co17
+DC(O)NH2              2.1e14  300  0.5  -0.2  1.0  cdms   1.5 Co17
+HC(O-18)NH2           0.8e14  300  0.5  -0.2  1.0  cdms    1. Co17
+! Methyl cyanide
+CH3CN                 2.0e16  130  0.5  -0.2  1.0   jpl    1. Ca18
+CH3CN, v8=1           2.0e16  130  0.5  -0.2  1.0  cdms    1. Ca18
+CH3CN, v8=2           2.0e16  130  0.5  -0.2  1.0  cdms    1. Ca18
+CH3CN, nu8            2.0e16  130  0.5  -0.2  1.0  cdms    1. Ca18
+CH3CN, 2nu8-nu8       2.0e16  130  0.5  -0.2  1.0  cdms    1. Ca18
+CH3CN, 2nu8           2.0e16  130  0.5  -0.2  1.0  cdms    1. Ca18
+C-13-H3CN, v=0        3.3e14  130  0.5  -0.2  1.0  cdms    1. Ca18
+CH3C-13-N, v=0        3.0e14  130  0.5  -0.2  1.0  cdms    1. Ca18
+CH3CN-15, v=0         8.7e13  130  0.5  -0.2  1.0  cdms    1. Ca18
+CH2DCN                5.6e14  130  0.5  -0.2  1.0  cdms    1. Ca18
+CHD2CN                1.2e14  130  0.5  -0.2  1.0  cdms    1. Ca18
+CH3NC                 1.5e14  150  0.5  -0.2  1.0   jpl    1. Ca18
+CH2NH                 8.0e14  100  0.5  -0.2  1.0   jpl    1. L18
+! Ethyl cyanide
+C2H5CN,v=0            1.5e15  160  0.5  -0.2  1.0  cdms    1. Ca18
+C2H5CN,v20=1-A        1.5e15  125  0.5  -0.2  1.0  cdms    1. Ca18
+C2H5CN,v12=1-A        1.5e15  125  0.5  -0.2  1.0  cdms    1. Ca18
+C2H5C-13-N,v=0        2.1e13  125  0.5  -0.2  1.0  cdms    1. Ca18
+CH3C-13-H2CN,v=0      2.1e13  125  0.5  -0.2  1.0  cdms    1. Ca18
+C-13-H3CH2CN,v=0      2.0e13  125  0.5  -0.2  1.0  cdms    1. Ca18
+CH2D(ip)CH2CN         2.0e13  125  0.5  -0.2  1.0  cdms    1. Ca18
+CH2D(oop)CH2CN        2.0e13  125  0.5  -0.2  1.0  cdms    1. Ca18
+CH3CHDCN              2.0e13  125  0.5  -0.2  1.0  cdms    1. Ca18
+C2H3CN                4.8e14  110  0.5  -0.2  1.0   jpl    1. Ca18
+!n-C3H7CN             1.5e14  160  0.5  -0.2  1.0  cdms    1. X
+!i-C3H7CN             1.5e14  160  0.5  -0.2  1.0  cdms    1. X
+! O-N COMs
+CH3NCO,vb=0           4.0e15  100  0.5  -0.2  1.0  cdms    1. Li17
+! Radicals
+Methoxy               3.0e16  300  0.5  -0.2  1.0   jpl    1. X
+H2COH                 3.0e16  300  0.5  -0.2  1.0  cdms    1. X
+NH2                   1.0e15  300  0.5  -0.2  1.0  cdms    1. X
+! SO
+SO                    5.0e14  100  0.5  -0.2  1.0   jpl    1. D18
+SO,v=1                5.0e14  100  0.5  -0.2  1.0  cdms    1. D18
+S-33-O                2.0e12  100  0.5  -0.2  1.0  cdms    1. D18
+SO-18                 1.0e12  100  0.5  -0.2  1.0  cdms    1. D18
+SO-17                 1.0e12  100  0.5  -0.2  1.0  cdms    1. D18
+S-34-O                2.0e12  100  0.5  -0.2  1.0  cdms    1. D18
+! SO2
+SO2                   5.9e15  125  0.5  -0.2  1.0   jpl    1. D18
+S-34-O2               4.0e14  125  0.5  -0.2  1.0   jpl    1. D18
+SOO-18                2.1e13  125  0.5  -0.2  1.0   jpl    1. D18
+! OCS
+OCS,v=0               3.5e17  125  0.5  -0.2  1.0  cdms    1. D18
+OCS,v2=1              3.5e17  125  0.5  -0.2  1.0  cdms    1. D18
+O-17-CS               5.0e14  125  0.5  -0.2  1.0  cdms    1. D18
+O-18-CS               5.0e14  125  0.5  -0.2  1.0  cdms    1. D18
+OC-13-S               5.0e15  125  0.5  -0.2  1.0  cdms    1. D18
+OCS-34                1.0e16  125  0.5  -0.2  1.0  cdms    1. D18
+OCS-33                3.0e15  125  0.5  -0.2  1.0  cdms    1. D18
+! CS
+CS,v=1-0,2-1          4.4e15  125  0.5  -0.2  1.0  cdms    1. D18
+CS,v=2-0              4.4e15  125  0.5  -0.2  1.0  cdms    1. D18
+C-13-S,v=0,1          6.3e13  125  0.5  -0.2  1.0  cdms    1. D18
+CS-33,v=0,1           8.0e13  125  0.5  -0.2  1.0  cdms    1. D18
+CS-34,v=0,1           2.0e14  125  0.5  -0.2  1.0  cdms    1. D18
+C-13-S-34             1.0e13  125  0.5  -0.2  1.0  cdms    1. D18
+C-13-S-33             1.0e13  125  0.5  -0.2  1.0  cdms    1. D18
+CS-36                 1.4e13  125  0.5  -0.2  1.0  cdms    1. D18
+! H2S
+H2S                   1.0e18  125  0.5  -0.2  1.0  cdms    1. D18
+HDS                   2.0e16  125  0.5  -0.2  1.0  cdms    1. D18
+H2S-34                4.5e16  125  0.5  -0.2  1.0  cdms    1. D18
+H2S-33                4.5e16  125  0.5  -0.2  1.0  cdms    1. D18
+HDS-34                1.0e15  125  0.5  -0.2  1.0  cdms    1. D18
+! H2CS
+H2CS                  1.5e15  125  0.5  -0.2  1.0  cdms    1. D18
+HDCS                  1.5e14  125  0.5  -0.2  1.0  cdms    1. D18
+D2CS                  1.5e13  125  0.5  -0.2  1.0  cdms    1. D18
+H2CS-34               1.5e14  125  0.5  -0.2  1.0  cdms    1. D18
+CH3SH,v=0-2           5.5e15  125  0.5  -0.2  1.0  cdms    1. D18
+! Cl
+CH3Cl-35              3.8e14  100  0.5  -0.2  1.0   jpl    1. F17 
+CH3Cl-37              1.8e14  100  0.5  -0.2  1.0   jpl    1. F17
+! molecules with S or P
+PN                    3.0e13  125  0.5  -0.2  1.0  cdms    1. X
+NS,v=0                3.0e13  125  0.5  -0.2  1.0  cdms    1. X
+NS,v=1                3.0e13  125  0.5  -0.2  1.0  cdms    1. X
+NS,v=1-0              3.0e13  125  0.5  -0.2  1.0  cdms    1. X
+PO                    3.0e13  125  0.5  -0.2  1.0  cdms    1. X
+*
+
+
+! References: 
+MR: Marit's report 
+Co17: Coutens et al. (2017)
+Ca18: Calcutt et al. in prep.
+D18: Drovdoskaya et al. (2018)
+F17: Fayolle et al. (2017)
+J16: Jorgensen et al. (2016)
+J18: Jorgensen et al. (2018)
+Li17: Ligterink et al. (2017)
+Ly17: Lykke et al. (2017)
+P18: Persson et al. (2018)
+T18: Taquet et al. (2018)
+
+
+! Undetected molecules
+E-HNCHCN 2e14   50  0.5  -0.2  1.0  cdms    1.
+Z-HNCHCN 2e14   50  0.5  -0.2  1.0  cdms    1.
+C2H5OOCH 1e16  100  0.5  -0.2  1.0   jpl 1.
+*
+
+! Molecules with private data
+HCOOCH2D              4.8e16  300  0.5  -0.2 1.0 others 1. J18
+DCOOCH3               1.5e16  300  0.5  -0.2 1.0 others 1. J18
+CH2DOCH3-as           4.1e16  125  0.5  -0.2 1.0 others 1.1 J18
+CH2DOCH3-s            1.2e16  125  0.5  -0.2 1.0 others 1.1 J18
+CH3COOH               1.5e15  300  0.5  -0.2 1.0 others 1. J16/2.
+13-CH3CHO             1.8e15  125  0.5  -0.2 1.0 others 1. J18
+CH3-13-CHO            1.8e15  125  0.5  -0.2 1.0 others 1. J18
