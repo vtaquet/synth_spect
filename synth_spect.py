@@ -20,8 +20,15 @@ import os
 ##---------------------------------
 ##---------------------------------
 
-if os.path.isfile('predictions') == False:
+# check if directories exist
+if os.path.isdir('predictions') == False:
   os.system("mkdir predictions")
+if os.path.isdir('data') == False:
+  os.system("mkdir data")
+if os.path.isdir('data/cdms') == False:
+  os.system("mkdir data/cdms")
+if os.path.isdir('data/jpl') == False:
+  os.system("mkdir data/jpl")
 
 # read input file and store input params into dictionary
 inpfile = "input.in"
@@ -35,6 +42,7 @@ inp_dict = dict(zip(inpparam,inpvalue))
 
 # assign input variables
 choice_obs = inp_dict["choice_obs"]       # Use an observed spectrum? If yes, specify fileobs
+choice_data = inp_dict["choice_data"]     # Where to look for spectro data (local or online)
 filemod = inp_dict["filemod"]             # species name
 fileobs = inp_dict["fileobs"]             # species name
 prefix   = inp_dict["prefix"]             # directory location 
@@ -114,18 +122,35 @@ Ktocm = 0.695; JtoeV = 1.602e-19; cmtoeV = 8065.54
 ##------------------------------------
 ##------------------------------------
 
-# read catdir from JPL and CDMS websites
+# read catdir from JPL and CDMS websites or locally
 catdir_jpl = "https://spec.jpl.nasa.gov/ftp/pub/catalog/catdir.cat"
-resp_jpl = requests.get(catdir_jpl)
-catdir_file_jpl = resp_jpl.text.split("\n")
-del(catdir_file_jpl[-1])
 catdir_cdms = "http://www.astro.uni-koeln.de/site/vorhersagen/catalog/partition_function.html"
-resp_cdms = requests.get(catdir_cdms)
-catdir_file_cdms = resp_cdms.text.split("\n")
-catdir_file_cdms = [line.replace("---", "0.0") for line in catdir_file_cdms]
-del(catdir_file_cdms[0:14])
-del(catdir_file_cdms[-5:-1])
-del(catdir_file_cdms[-1])
+#
+if choice_data == 'online': # read the catdir online
+  resp_jpl = requests.get(catdir_jpl)
+  catdir_file_jpl = resp_jpl.text.split("\n")
+  del(catdir_file_jpl[-1])
+  resp_cdms = requests.get(catdir_cdms)
+  catdir_file_cdms = resp_cdms.text.split("\n")
+  catdir_file_cdms = [line.replace("---", "0.0") for line in catdir_file_cdms]
+  del(catdir_file_cdms[0:14])
+  del(catdir_file_cdms[-5:-1])
+  del(catdir_file_cdms[-1])
+  # write the catdir files locally
+  with open("data/catdir_jpl.cat", 'w') as catjpl:
+    for line in catdir_file_jpl:
+      catjpl.write(line+'\n')
+  with open("data/catdir_cdms.cat", 'w') as catcdms:
+    for line in catdir_file_cdms:
+      catcdms.write(line+'\n')
+elif choice_data == 'local': # read the catdir locally
+  catdir_file_jpl = [] ; catdir_file_cdms = []
+  with open("data/catdir_jpl.cat",'r') as catjpl:
+    for line in catjpl.readlines():
+      catdir_file_jpl.append(line[0:-1])
+  with open("data/catdir_cdms.cat",'r') as catcdms:
+    for line in catcdms.readlines():
+      catdir_file_cdms.append(line[0:-1])
 
 # create dictionary and panda frames
 catdir_dic_jpl = {'tag': [int(line[0:7]) for line in catdir_file_jpl], 
@@ -188,6 +213,7 @@ for isp in range(Nsp):
       exit()
     Tpf = [300., 225., 150., 75., 37.5, 18.75, 9.375] ; Npf = len(Tpf)
     specurl = "https://spec.jpl.nasa.gov/ftp/pub/catalog/c%06i.cat" % (catdir_pd_jpl.loc[namespec,"tag"])
+    specpath = 'data/'+datab+'/c%06i.cat' % (catdir_pd_jpl.loc[namespec,"tag"])
   elif datab == 'cdms':
     try:
       pf = catdir_pd_cdms.loc[[namespec],['T_1000K','T_500K','T_300K','T_225K','T_150K','T_75K','T_37.5K','T_18.75','T_9.375K','T_5K','T_2.725K']].values.tolist()[0]
@@ -197,6 +223,7 @@ for isp in range(Nsp):
     Tpf = [1000., 500., 300., 225., 150., 75., 37.5, 18.75, 9.375, 5., 2.725] ; Npf = len(Tpf)
     #print(str(catdir_pd_cdms.loc[namespec,"tag"]).zfill(6))
     specurl = "http://www.astro.uni-koeln.de/site/vorhersagen/catalog/c%06i.cat" % (catdir_pd_cdms.loc[namespec,"tag"])
+    specpath = 'data/'+datab+'/c%06i.cat' % (catdir_pd_cdms.loc[namespec,"tag"])
     # assign pf values to closest ones when there is no data    
     for it in range(Npf):
         if pf[it] == 1.0:
@@ -213,13 +240,24 @@ for isp in range(Nsp):
 
   # compute partition function
   pf_interp = interp1d(Tpf,pf)
-  Z = pf_interp(mod_pd["Tex"].values[0])*mod_pd["vibf"].values[0] # pf from specified Trot
-  Zint = pf_interp(300.) # pf at 300 K
+  Z = pf_interp(mod_pd.loc[namespec,"Tex"])*mod_pd.loc[namespec,"vibf"] # pf from specified Trot
+  Zint = float(pf_interp(300.)) # pf at 300 K
   mod_pd["Z_300K"] = Zint
   mod_pd["Z_Trot"] = Z
 
-  response = requests.get(specurl)
-  specfile = response.text.split("\n")
+  # read spectro datafile online or locally
+  if choice_data == 'online':
+    response = requests.get(specurl)
+    specfile = response.text.split("\n")
+    #open(specpath, 'w').write(response.content)
+    with open(specpath, 'w') as catfile:
+      for line in specfile:
+        catfile.write(line+'\n')
+  elif choice_data == 'local':
+    specfile = []
+    with open(specpath,'r') as catfile:
+      for line in catfile.readlines():
+        specfile.append(line[0:-1])
   del(specfile[-1])
 
   # create dictionary and panda frame from spectro file
@@ -264,33 +302,34 @@ for isp in range(Nsp):
   else:
     spec_pd = spec_pd.append(spec_pd2,ignore_index=True)
 
-# sort dataframe according to frequency
-spec_pd = spec_pd.sort_values(by=["nu"])
 
+# compute intensities from spectro properties
 spec_pd["Eup"] = spec_pd["Elow"] + hb*1e-7*spec_pd["nu"]*1e6*cmtoeV/JtoeV
 spec_pd["Aij"] = spec_pd["intens"]*((spec_pd["nu"])**2)*spec_pd["Zint"]/spec_pd["gup"]*\
                  (np.exp(-spec_pd["Elow"]/Ktocm/3e2)-np.exp(-spec_pd["Eup"]/Ktocm/3e2))**(-1)*2.7964e-16
 
 if choice_tau == 'yes':
-    spec_pd["tau"] = np.array(c**3*spec_pd["Aij"]*spec_pd["gup"]*spec_pd["Ntot"]/(8.*np.pi*(spec_pd["nu"]*1e6)**3*spec_pd["dv"]*1e5*spec_pd["Z"])*\
-                     np.exp(-spec_pd["Eup"]/Ktocm/spec_pd["Tex"])*(np.exp(hb*spec_pd["nu"]*1e6/(kb*spec_pd["Tex"]))-1),dtype=np.float32)
+    spec_pd["tau"] = c**3*spec_pd["Aij"]*spec_pd["gup"]*spec_pd["Ntot"]/(8.*np.pi*(spec_pd["nu"]*1e6)**3*spec_pd["dv"]*1e5*spec_pd["Z"])*\
+                     np.exp(-spec_pd["Eup"]/Ktocm/spec_pd["Tex"])*(np.exp(hb*spec_pd["nu"]*1e6/(kb*spec_pd["Tex"]))-1) 
     spec_pd["Nup"] = 0.
     tau_0 = spec_pd["tau"] <= 0
     tau_1 = spec_pd["tau"] > 0
-    #print((1-np.exp(-spec_pd.loc[tau_1,"tau"]))/spec_pd.loc[tau_1,"tau"])
     spec_pd.loc[tau_1,"Nup"] = spec_pd.loc[tau_1,"gup"]*spec_pd.loc[tau_1,"Ntot"]/spec_pd.loc[tau_1,"Z"]*np.exp(-spec_pd.loc[tau_1,"Eup"]/Ktocm/spec_pd.loc[tau_1,"Tex"])*(1-np.exp(-spec_pd.loc[tau_1,"tau"]))/spec_pd.loc[tau_1,"tau"]
     spec_pd.loc[tau_0,"Nup"] = spec_pd.loc[tau_0,"gup"]*spec_pd.loc[tau_0,"Ntot"]/spec_pd.loc[tau_0,"Z"]*np.exp(-spec_pd.loc[tau_0,"Eup"]/Ktocm/spec_pd.loc[tau_0,"Tex"])
+    #spec_pd["Nup"] = spec_pd["gup"]*spec_pd["Ntot"]/spec_pd["Z"]*np.exp(-spec_pd["Eup"]/Ktocm/spec_pd["Tex"])*(1-np.exp(-1e0*spec_pd["tau"]))/spec_pd["tau"]
                            
 elif choice_tau == 'no':
-    spec_pd["Nup"] = spec_pd["gup"]*spec_pd["Ntot"]/Z*np.exp(-spec_pd["Eup"]/Ktocm/spec_pd["Tex"])
+    spec_pd["tau"] = 0.
+    spec_pd["Nup"] = spec_pd["gup"]*spec_pd["Ntot"]/spec_pd["Z"]*np.exp(-spec_pd["Eup"]/Ktocm/spec_pd["Tex"])
 
 spec_pd["Tint"] = spec_pd["Nup"]*spec_pd["bd"]*hb*c**3*spec_pd["Aij"]/(8e0*np.pi*kb*(spec_pd["nu"]*1e6)**2)/1e5
 spec_pd["Tpeak"]= spec_pd["Tint"]/(1.06447*dv)
 spec_pd["Fint"] = (1.222e6)**(-1)*beamsize**2*(spec_pd["nu"]/1e3)**2*spec_pd["Tint"]*1e3
 spec_pd["Fpeak"]= (1.222e6)**(-1)*beamsize**2*(spec_pd["nu"]/1e3)**2*spec_pd["Tpeak"]*1e3
 
-#print(spec_pd)
-#exit()
+# sort dataframe according to frequency
+spec_pd = spec_pd.sort_values(by=["nu"])
+
 
 ##----------------------------------------
 ##----------------------------------------
@@ -303,14 +342,12 @@ where = spec_pd[choice_y] > Vmin
 spec_pd_out = spec_pd[where]
 
 filepf = open('predictions/'+prefix+"list_spect.cat",'w')
-#filepf.write('%10.1e %8.2f %8.2f\n' % (Ntot,Trot,beamsize))
 filepf.write('!            Species  Freq. (MHz)  Eup (K)     Aij(s-1)    Nup(cm-2)  '+\
              'Tmbdv (K km/s) Tpeak (K) Fint (mJy km/s) Fpeak (mJy)        tau\n')
 for index, row in spec_pd_out.iterrows():
     filepf.write('%20s %12.3f %8.2f %12.3e %12.3e %12.3e %12.3e %12.3e %12.3e %12.3e\n' \
                 % (row["species"], row["nu"], row["Eup"]/Ktocm, row["Aij"], row["Nup"], \
                    row["Tint"], row["Tpeak"], row["Fint"], row["Fpeak"], row["tau"]))
-
 
 # compute the overall spectrum
 def gaus(x,a,sigma,x0):
@@ -363,6 +400,9 @@ plt.ylim(min_y,max_y)
 plt.step(nu_plot,T_plot,'r')#,'fontname':'Helvetica')
 if choice_obs == 'yes':
   plt.step(obs_pd["nu"].values.tolist(),obs_pd["Tpeak"].values.tolist(),'k')#,'fontname':'Helvetica')
+if choice_plot == 2:
+  for index, row in spec_pd_out.iterrows():
+    plt.text(row["nu"], 0.5*min_y, row["species"], rotation=90, horizontalalignment='center',verticalalignment='center',fontsize=5)
 if choice_plot == 1:
     plt.savefig('predictions/'+prefix+'spect_Tmb_all.eps',bbox_inches='tight')
     #plt.savefig('predictions/'+prefix+'spect_Tmb_all.pdf',bbox_inches='tight')
@@ -380,13 +420,16 @@ plt.ylim(min_y,max_y)
 plt.step(nu_plot,F_plot,'r')#,'fontname':'Helvetica')
 if choice_obs == 'yes':
   plt.step(obs_pd["nu"].values.tolist(),obs_pd["Fpeak"].values.tolist(),'k')#,'fontname':'Helvetica')
+if choice_plot == 2:
+  for index, row in spec_pd_out.iterrows():
+    plt.text(row["nu"], 0.5*min_y, row["species"], rotation=90, horizontalalignment='center',verticalalignment='center',fontsize=5)
 if choice_plot == 1:
     plt.savefig('predictions/'+prefix+'spect_F_all.eps',bbox_inches='tight')
     #plt.savefig('predictions/'+prefix+'spect_F.pdf',bbox_inches='tight')
 if choice_plot == 2:
     plt.show()
     
-
+# 
 if choice_plot == 1: 
   for iw in range(10):
     numin2 = numin[0] + iw*(numax[-1]-numin[0])/10.

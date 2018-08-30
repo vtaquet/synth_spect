@@ -1,4 +1,5 @@
 choice_obs 	 = yes 		# Use an observed spectrum? If yes, specify fileobs
+choice_data  = local    # Where to look for spectro data (local or online)
 filemod		 = iras16293_allspecies_fb_shift.mdl 			# input model file 
 fileobs		 = IRAS16293.B6.PILS.contsub-spec-fb-Tmb.obs	# input obs file
 choice_y 	 = Tpeak	# Unit of intensity value:   Tpeak (K), Fpeak (mJy)
@@ -10,4 +11,4 @@ numax		 = 800.  	# Maximum frequency [GHz]
 dnu			 = 0.1		# Spectral resolution [MHz]
 Vmin 		 = 1.		# Minimal value for selected transitions (K or mJy)
 rms			 = 0.		# rms noise of synthetic spectrum (K or mJy)
-choice_plot	 = 1		# Output for the plot: 1) pdf, 2) python window
+choice_plot	 = 2		# Output for the plot: 1) pdf, 2) python window
