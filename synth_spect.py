@@ -57,6 +57,7 @@ rms = float(inp_dict["rms"])              # Minimal value for param chosen above
 choice_plot = int(inp_dict["choice_plot"])# Output for the plot: 1) pdf, 2) python window
 
 numin = numin*1e3 ; numax = numax*1e3
+numint = numin ; numaxt = numax
 
 # read mod file
 filemodascii = open(filemod,'r')
@@ -104,12 +105,13 @@ if choice_obs == 'yes':
     if np.isclose(nuobs[ic+1],nuobs[ic]+dnu,1e-4) == False:
       numax.append(nuobs[ic])
       numin.append(nuobs[ic+1])
-numax.append(nuobs[Nchan-1])
-obs_pd = pd.DataFrame({"nu" : nuobs, choice_y : Iobs})
-if choice_y == "Fpeak":
-  obs_pd["Tpeak"] = obs_pd[choice_y]/((1.222e6)**(-1)*beamsize**2*((numin[0]+numax[-1])/2./1e3)**2)*1e-3
-elif choice_y == "Tpeak":
-  obs_pd["Fpeak"] = (1.222e6)**(-1)*beamsize**2*((numin[0]+numax[-1])/2./1e3)**2*obs_pd[choice_y]*1e3
+  numax.append(nuobs[Nchan-1])
+  obs_pd = pd.DataFrame({"nu" : nuobs, choice_y : Iobs})
+  if choice_y == "Fpeak":
+    obs_pd["Tpeak"] = obs_pd[choice_y]/((1.222e6)**(-1)*beamsize**2*((numin[0]+numax[-1])/2./1e3)**2)*1e-3
+  elif choice_y == "Tpeak":
+    obs_pd["Fpeak"] = (1.222e6)**(-1)*beamsize**2*((numin[0]+numax[-1])/2./1e3)**2*obs_pd[choice_y]*1e3
+  numint = numin[0] ; numaxt = numax[-1]
 
 # constants
 c=2.99e10; kb = 1.3803e-16; hb = 6.62e-27; lun = 1
@@ -294,7 +296,7 @@ for isp in range(Nsp):
                 'Z':        [Z for line in specfile],
                 'Zint':     [Zint for line in specfile]})
 
-  spec_pd2 = spec_pd2[(spec_pd2["nu"] >= numin[0]) & (spec_pd2["nu"] <= numax[-1])]
+  spec_pd2 = spec_pd2[(spec_pd2["nu"] >= numint) & (spec_pd2["nu"] <= numaxt)]
 
   # add transitions to dataframe
   if isp == 0:
@@ -356,7 +358,7 @@ def gaus(x,a,sigma,x0):
     #sigma = 0.5/2.355
     return a*np.exp(-(x-x0)**2/(2*sigma**2))+offset
 
-nu_plot = np.arange(numin[0],numax[-1],dnu)
+nu_plot = np.arange(numint,numaxt,dnu)
 T_plot = np.full_like(nu_plot, 0.)
 F_plot = np.full_like(nu_plot, 0.) 
 for index, row in spec_pd_out.iterrows():
@@ -365,17 +367,17 @@ for index, row in spec_pd_out.iterrows():
 
 if choice_y == 'Tpeak':
   rmst = rms
-  rmsf = (1.222e6)**(-1)*beamsize**2*((numin[0]+numax[-1])/2./1e3)**2*rmst*1e3
+  rmsf = (1.222e6)**(-1)*beamsize**2*((numint+numaxt)/2./1e3)**2*rmst*1e3
   T_plot += np.random.rand(len(nu_plot))*rmst/2.-rmst/4.
   F_plot += np.random.rand(len(nu_plot))*rmsf/2.-rmsf/4.
 elif choice_y == 'Fpeak':
   rmsf = rms
-  rmst = rmsf/((1.222e6)**(-1)*beamsize**2*((numin[0]+numax[-1])/2./1e3)**2)*1e-3
+  rmst = rmsf/((1.222e6)**(-1)*beamsize**2*((numint+numaxt)/2./1e3)**2)*1e-3
   F_plot += np.random.rand(len(nu_plot))*rmsf/2.-rmsf/4.
   T_plot += np.random.rand(len(nu_plot))*rmst/2.-rmst/4.
 
 # plot the spectrum
-hfont = {'family' : 'normal',
+hfont = {'family' : 'DejaVu Sans',
          'weight' : 'medium',
          'size'   : 10}
 haxes = {'linewidth' : 1.5}
@@ -394,18 +396,17 @@ plt.rcParams.update(params)
 max_y = T_plot.max() ; min_y = -0.1*max_y
 plt.figure(1,figsize=(20,5))
 plt.xlabel('Frequency [GHz]')
-plt.xlim(numin[0],numax[-1])
+plt.xlim(numint,numaxt)
 plt.ylabel('Tmb [K]')
 plt.ylim(min_y,max_y)
-plt.step(nu_plot,T_plot,'r')#,'fontname':'Helvetica')
+plt.step(nu_plot,T_plot,'r')
 if choice_obs == 'yes':
-  plt.step(obs_pd["nu"].values.tolist(),obs_pd["Tpeak"].values.tolist(),'k')#,'fontname':'Helvetica')
+  plt.step(obs_pd["nu"].values.tolist(),obs_pd["Tpeak"].values.tolist(),'k')
 if choice_plot == 2:
   for index, row in spec_pd_out.iterrows():
     plt.text(row["nu"], 0.5*min_y, row["species"], rotation=90, horizontalalignment='center',verticalalignment='center',fontsize=5)
 if choice_plot == 1:
     plt.savefig('predictions/'+prefix+'spect_Tmb_all.eps',bbox_inches='tight')
-    #plt.savefig('predictions/'+prefix+'spect_Tmb_all.pdf',bbox_inches='tight')
 if choice_plot == 2:
     plt.show()
 
@@ -414,35 +415,34 @@ max_y = F_plot.max() ; min_y = -0.1*max_y
 plt.figure(1,figsize=(20,5))
 plt.figure(2,figsize=(20,5))
 plt.xlabel('Frequency [GHz]')
-plt.xlim(numin[0],numax[-1])
+plt.xlim(numint,numaxt)
 plt.ylabel('F [mJy]')
 plt.ylim(min_y,max_y)
-plt.step(nu_plot,F_plot,'r')#,'fontname':'Helvetica')
+plt.step(nu_plot,F_plot,'r')
 if choice_obs == 'yes':
-  plt.step(obs_pd["nu"].values.tolist(),obs_pd["Fpeak"].values.tolist(),'k')#,'fontname':'Helvetica')
+  plt.step(obs_pd["nu"].values.tolist(),obs_pd["Fpeak"].values.tolist(),'k')
 if choice_plot == 2:
   for index, row in spec_pd_out.iterrows():
     plt.text(row["nu"], 0.5*min_y, row["species"], rotation=90, horizontalalignment='center',verticalalignment='center',fontsize=5)
 if choice_plot == 1:
     plt.savefig('predictions/'+prefix+'spect_F_all.eps',bbox_inches='tight')
-    #plt.savefig('predictions/'+prefix+'spect_F.pdf',bbox_inches='tight')
 if choice_plot == 2:
     plt.show()
     
 # 
 if choice_plot == 1: 
   for iw in range(10):
-    numin2 = numin[0] + iw*(numax[-1]-numin[0])/10.
-    numax2 = numin[0] + (iw+1)*(numax[-1]-numin[0])/10.
+    numin2 = numin[0] + iw*(numaxt-numint)/10.
+    numax2 = numin[0] + (iw+1)*(numaxt-numint)/10.
     max_y = obs_pd["Tpeak"].max() ; min_y = -0.1*max_y
     plt.figure(iw,figsize=(20,5))
     plt.xlabel('Frequency [GHz]')
     plt.xlim(numin2,numax2)
     plt.ylabel('Tmb [K]')
     plt.ylim(min_y,max_y)
-    plt.step(nu_plot,T_plot,'r')#,'fontname':'Helvetica')
+    plt.step(nu_plot,T_plot,'r')
     if choice_obs == 'yes':
-      plt.step(obs_pd["nu"].values.tolist(),obs_pd["Tpeak"].values.tolist(),'k')#,'fontname':'Helvetica')
+      plt.step(obs_pd["nu"].values.tolist(),obs_pd["Tpeak"].values.tolist(),'k')
     plt.savefig('predictions/'+prefix+'spect_Tmb_zoom_'+str(iw)+'.eps',bbox_inches='tight')
     
     max_y = obs_pd["Fpeak"].max() ; min_y = -0.1*max_y
@@ -451,9 +451,9 @@ if choice_plot == 1:
     plt.xlim(numin2,numax2)
     plt.ylabel('F [mJy]')
     plt.ylim(min_y,max_y)
-    plt.step(nu_plot,F_plot,'r')#,'fontname':'Helvetica')
+    plt.step(nu_plot,F_plot,'r')
     if choice_obs == 'yes':
-      plt.step(obs_pd["nu"].values.tolist(),obs_pd["Fpeak"].values.tolist(),'k')#,'fontname':'Helvetica')
+      plt.step(obs_pd["nu"].values.tolist(),obs_pd["Fpeak"].values.tolist(),'k')
     plt.savefig('predictions/'+prefix+'spect_F_zoom_'+str(iw)+'.eps',bbox_inches='tight')
     
 
