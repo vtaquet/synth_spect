@@ -8,19 +8,20 @@ This python script reads online spectroscopic data through the JPL and CDMS data
 
 The input parameters needed by synth_spect.py are the following:
 
-- choice_obs: 'yes' or 'no' for the use of an observed spectrum. If yes, specify fileobs
-- filemod: Name of input model file 
-- fileobs: Name of input observed file 
-- choice_y: Unit of intensity value ('Tpeak' for K, 'Fpeak' for mJy)
-- prefix: Prefix of output files
-- beamsize: Beam size [arcsec]
-- choice_tau: Include opacity in calculations (yes or no)
-- numin: Minimum frequency [GHz]
-- numax: Maximum frequency [GHz]
-- dnu: Spectral resolution [MHz]
-- Vmin: Minimal value for selected transitions (K or mJy depending on choice_y)
-- rms: rms noise of synthetic spectrum (K or mJy depending on choice_y)
-- choice_plot: Output for the plot: 1) pdf, 2) python window
+- choice_obs: 'yes' or 'no'. Whether or not you want to compare your synthetic spectrum with an observed one. If 'yes' is chosen, the min and max frequencies of the spectrum will match the observed spectrum.
+- choice_data: 'local' or 'online'. Where to look for spectroscopic data. If 'online' is chosen, the routine will read and save the spectroscopic data into the 'data' folder. If 'local' is chosen, the routine assumes that all spectroscopic files have been previously downloaded. 
+- filemod: Name of the input model file.
+- fileobs: Name of the input observed file.
+- choice_y: Unit of intensity value ('Tpeak' for K, 'Fpeak' for mJy).
+- prefix: Prefix of output files.
+- beamsize: Beam size [arcsec].
+- choice_tau: Include opacity in the calculations (yes or no).
+- numin: Minimum frequency [GHz].
+- numax: Maximum frequency [GHz].
+- dnu: Spectral resolution [MHz].
+- Vmin: Minimal value for selected transitions (K or mJy depending on choice_y).
+- rms: rms noise of synthetic spectrum (K or mJy depending on choice_y).
+- choice_plot: Output for the plot: 1) pdf, 2) python window.
 
 
 ## modeled spectrum file
@@ -46,4 +47,7 @@ The observed spectrum file is a 2-column ASCII file giving the frequency (in MHz
 
 ## How to run the script
 
-Install python3 and the usual packages numpy, pandas, matplotlib, and scipy. Once python3 is install, type: `python3 synth_spect.py`
+Install python3 and the usual packages numpy, pandas, matplotlib, and scipy. Once python3 is install, type: 
+```
+python3 synth_spect.py
+```
